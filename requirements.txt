@@ -1,2 +1,2 @@
-pyransac3d
-open3d
+shutil
+PIL

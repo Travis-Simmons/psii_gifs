@@ -13,8 +13,6 @@ RUN apt-get update && apt-get install -y \
     gnupg \
     wget 
 
-RUN wget https://files.renci.org/pub/irods/releases/4.1.10/ubuntu14/irods-icommands-4.1.10-ubuntu14-x86_64.deb \
-    && apt-get install -y ./irods-icommands-4.1.10-ubuntu14-x86_64.deb
 
 RUN apt-get update
 RUN apt-get install -y python3.6-dev \
@@ -37,5 +35,5 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 # RUN docker pull irods/icommands:4.0.3
 # RUN docker run -ti irods/icommands:4.0.3
 
-ENTRYPOINT [ "/usr/bin/python3", "/opt/notebooks/ml_data_formatting/hpc_3d_data_puller.py" ]
+ENTRYPOINT [ "/usr/bin/python3", "/opt/notebooks/psii_conversion.py" ]
 
