@@ -1,23 +1,49 @@
-# sorting
 import glob
 import subprocess
 import shutil
+import os
+from PIL import Image
+
+"""
+This script takes in the output of 
+
+https://github.com/phytooracle/rgb_flir_plot_clip_geojson.git
+
+being run on many individual psii tiles.
+
+The output of the above script looks like
+
+psii_plotclip/date/plot/img.tif
+
+This script then takes in the top level directory as the indir argument and first sorts the images like:
+
+plot_sorting/plot/date1_plot1.tif date2_plot1.tif ...
+
+It then goes in each plot directory and makes a tif out of all the images inside
+
+Bug:
+
+During the overlap phase of hte plotclip script wrong images are being brought in for visualization
 
 
-all_dates = glob.glob('psii_plotclip/*');all_dates
 
+"""
+
+indir = 'psii_plotclip'
+
+# Find all dates
+all_dates = glob.glob(os.path.join(indir, '*'));all_dates
+
+# Create output directory
 if not os.path.exists('plot_sorting'):
     os.mkdir('plot_sorting')
 
-
+# For each plot each day, sort them as described above
 for i in all_dates:
     plots = glob.glob(os.path.join(i, '*'))
     date = os.path.basename(i)
-    print(date)
-    
-    
+
     for x in plots:
-        
 
         plot = os.path.basename(x)
 
@@ -33,22 +59,12 @@ for i in all_dates:
         
 
             new_filename = date+'_'+plot +'_'+ str(cnt)+'.tif'
-            # print(new_filename)
             shutil.copyfile(z, os.path.join(plot_folder, new_filename))
 
 
 # make gifs once sorted
 
-
-from PIL import Image
-import glob
- 
-# Create the frames
-
-# imgs = glob.glob("2000_psii_set_png/*.png")
-
-# plot level 
-
+# Make output directory
 if not os.path.exists('gifs'):
     os.mkdir('gifs')
 
